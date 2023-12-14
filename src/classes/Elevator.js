@@ -20,8 +20,8 @@ export default class Elevator {
     this.movingDirection = 0; // -1 for down, 1 for up, 0 for stationary
 
     // Elevator movement properties
-    this.maxSpeed = 1;
-    this.acceleration = 0.01;
+    this.maxSpeed = 4;
+    this.acceleration = 0.06;
 
     // Create a rectangle for the elevator
     this.graphics = scene.add.rectangle(100 * (id + 1), 0, 50, 50, 0x00ff00);
@@ -81,7 +81,7 @@ export default class Elevator {
       this.graphics.y += this.movingDirection * this.speed;
   
       // Stop at the destination floor if close enough
-      if (Math.abs(this.graphics.y - targetY) <= 0.01) {
+      if (Math.abs(this.graphics.y - targetY) <= this.acceleration) {
         this.graphics.y = targetY;
         this.arrived();
       }
