@@ -1,0 +1,8 @@
+This is a simple build elevator game simulator.
+In the game we will have couple of elevators. when the user clicks on one elevator, he then can click on the desired floor for the elevator will go to. the elevator will start to move slowly to the desired floor. some people will appear in each floor telling us which floor they want to go to. if the elevator stopped in the same floor as the man, he would enter the elevator and they move together until he reaches the desired floor and then he will be getting out. 
+The Technology Stack I want is React for frontend, Node.js for backend, threads for each elevator work, and pixijs.
+
+for now, work only on the frontend. Use pixijs and create a basic UI.
+Each elevator will be rectangle.
+The user will be able to click on a elevator and then click on a floor. the elevator will start to move to the desired floor.
+For start create 2 elevators and 5 floors.

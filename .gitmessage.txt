@@ -1,0 +1,5 @@
+[Type]: Short description (less than 50 characters)
+
+[Optional] More detailed explanatory text, if necessary. Wrap it to about 72 characters.
+
+[Optional] Related issues, pull requests, or task ID.
