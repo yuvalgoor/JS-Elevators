@@ -39,7 +39,9 @@ export default class MainScene extends Phaser.Scene {
         do {
           desiredFloor = Phaser.Math.Between(0, 9);
         } while (desiredFloor === currentFloor);
-        this.people.push(new Person(this, currentFloor, desiredFloor));
+        
+        const id = this.people.length;
+        this.people.push(new Person(this,id, currentFloor, desiredFloor));
       },
       callbackScope: this,
       loop: true,

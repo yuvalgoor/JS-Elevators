@@ -23,6 +23,10 @@ export default class Floor {
             color
         );
         this.graphics.setInteractive();
+        this.graphics.on("pointerdown", () => {
+            // Set the elevator destination in the game manager
+            this.scene.gameManager.setElevatorDestination(this);
+        });
 
         // Write the floor number on it
         this.text = scene.add.text(
