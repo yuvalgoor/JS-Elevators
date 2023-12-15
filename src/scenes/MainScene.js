@@ -32,7 +32,7 @@ export default class MainScene extends Phaser.Scene {
 
     // Example: Spawn a person every 2 seconds
     this.time.addEvent({
-      delay: 2000,
+      delay: 5000,
       callback: () => {
         let currentFloor = Phaser.Math.Between(0, 9);
         let desiredFloor;

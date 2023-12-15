@@ -28,49 +28,41 @@ export default class GameManager {
   }
 
   handlePeopleDropOff(elevator) {
-    // Check if there are people to drop off
-    let peopleToDropOff = this.scene.people.filter(
-      (person) =>
-        person.desiredFloor === elevator.currentFloor &&
-        person.elevator === elevator
-    );
+    // Iterate over each slot in the elevator
+    elevator.slots.forEach((slot) => {
+        // Check if the slot is occupied and the occupant's desired floor matches the current floor
+        if (slot.person && slot.person.desiredFloor === elevator.currentFloor) {
+            // Update the score for dropping off the person
+            this.score += this.scorePerPerson;
 
-    // If there are people to drop off
-    if (peopleToDropOff.length > 0) {
-      // Remove the people from the elevator
-      elevator.people = elevator.people.filter(
-        (person) => !peopleToDropOff.includes(person)
-      );
+            // Let the person complete their arrival process
+            slot.person.arrived();
 
-      peopleToDropOff.forEach((person) => {
-        // Update the score
-        this.score += this.scorePerPerson;
-
-        // Make the people arrive
-        person.arrived();
-      });
-    }
-  }
+            // Set the slot to unoccupied
+            slot.person = null;
+        }
+    });
+}
 
   handlePeoplePickup(elevator) {
-    // Check if there are people to pick up
+    // Check if there are people to pick up at the current floor
     let peopleToPickUp = this.scene.people.filter(
-      (person) => person.currentFloor === elevator.currentFloor && person.elevator === null
+      (person) =>
+        person.currentFloor === elevator.currentFloor &&
+        person.elevator === null
     );
 
-    // If there are people to pick up
-    if (peopleToPickUp.length > 0) {
-      // If there is space in the elevator
-      if (elevator.people.length < elevator.capacity) {
-        // Pick up the people one by one and check the capacity after each pick up
-        peopleToPickUp.forEach((person) => {
-          if (elevator.people.length < elevator.capacity) {
-            elevator.people.push(person);
-            person.enterElevator(elevator);
-          }
-        });
+    // Loop through each person who needs to be picked up
+    peopleToPickUp.forEach((person) => {
+      // Find the first empty slot in the elevator
+      let emptySlot = elevator.slots.find((slot) => slot.person === null);
+
+      // If there's an empty slot, assign the person to it
+      if (emptySlot) {
+        emptySlot.person = person;
+        person.enterElevator(elevator, emptySlot);
       }
-    }
+    });
   }
 }
 

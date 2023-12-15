@@ -23,7 +23,7 @@ export default class Elevator {
     this.capacity = 2;
     this.slots = [];
     for (let i = 0; i < this.capacity; i++) {
-      this.slots.push(new ElevatorSlot(i));
+      this.slots.push(new ElevatorSlot(null, i));
     }
 
     // Elevator movement properties
@@ -127,9 +127,13 @@ export default class Elevator {
   }
 }
 
-class ElevatorSlot {
-  constructor(id) {
-    this.man = null;
+class ElevatorSlot {    
+/**
+ * @param {null | Person} person
+ * @param {number} id
+ */
+constructor(person, id) {
+    this.person = person;
     this.id = id;
-  }
+}
 }
