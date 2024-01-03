@@ -18,21 +18,26 @@ export default class Elevator {
     this.destinationFloor = null;
     this.speed = 0;
     this.movingDirection = 0; // -1 for down, 1 for up, 0 for stationary
-    this.people = [];
+
+    // Elevator capacity and slots
     this.capacity = 2;
+    this.slots = [];
+    for (let i = 0; i < this.capacity; i++) {
+      this.slots.push(new ElevatorSlot(null, i));
+    }
 
     // Elevator movement properties
     this.maxSpeed = 1;
     this.acceleration = 0.06;
 
     // Create a rectangle for the elevator. light green is selected, dark green is not
-    this.graphics = scene.add.rectangle(100 * (id + 1), 0, 60, 60, 0x00AA00);
+    this.graphics = scene.add.rectangle(100 * (id + 1), 0, 60, 60, 0x00aa00);
     this.graphics.setInteractive();
     this.graphics.on("pointerdown", () => {
       // Set the elevator as selected in the game manager (or toggle it off if already selected)
-        this.scene.gameManager.setSelectedElevator(
-            this.scene.gameManager.selectedElevator === this ? null : this
-        );
+      this.scene.gameManager.setSelectedElevator(
+        this.scene.gameManager.selectedElevator === this ? null : this
+      );
     });
 
     // Write the destination floor on the moving elevator
@@ -51,7 +56,7 @@ export default class Elevator {
   update() {
     // Update elevator color based on selection
     this.graphics.setFillStyle(
-        this.scene.gameManager.selectedElevator === this ? 0x00FF00 : 0x00AA00
+      this.scene.gameManager.selectedElevator === this ? 0x00ff00 : 0x00aa00
     );
 
     if (this.destinationFloor !== null) {
@@ -120,4 +125,15 @@ export default class Elevator {
     // Call the game manager to handle the arrival
     this.scene.gameManager.handleElevatorArrival(this);
   }
+}
+
+class ElevatorSlot {    
+/**
+ * @param {null | Person} person
+ * @param {number} id
+ */
+constructor(person, id) {
+    this.person = person;
+    this.id = id;
+}
 }

@@ -42,14 +42,14 @@ export default class Person {
         }
     }
 
-    enterElevator(elevator) {
+    enterElevator(elevator, slot) {
         // Enter the elevator
         this.elevator = elevator;
 
         // Fade out the person + text while moving them to the elevator
         this.scene.tweens.add({
             targets: [this.graphics, this.text],
-            x: this.getElevatorPositionX(),
+            x: (slot.id * 20) + this.elevator.graphics.x - 60,
             y: elevator.graphics.y,
             duration: 300,
             ease: Phaser.Math.Easing.Quadratic.InOut
@@ -71,13 +71,6 @@ export default class Person {
         return floorX;
         }
 
-    getElevatorPositionX() {
-        // Calculate the X position of the person in the elevator
-        // based on the number of people in the elevator
-        let peopleInElevator = this.elevator.people;
-        const elevatorX = this.elevator.graphics.x - 60 + (40 * peopleInElevator.length);
-        return elevatorX;
-    }
 
     arrived() {
         // Remove the elevator from person
